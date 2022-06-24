@@ -17,4 +17,12 @@ public class UserRepository {
         return users;
 
     }
+    public User findById(Long id){
+
+        return new User(1L,"codej","1234","01046232891");
+    }
+
+    public void save(User user){
+        System.out.println("DB에 Insert 하기");
+    }
 }

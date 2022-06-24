@@ -28,19 +28,25 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public void findById(@PathVariable Long id){
-        log.info("findById");
+    public User findById(@PathVariable Long id){
+        log.info("findById : "+id);
+        return userRepository.findById(id);
     }
 
     @PostMapping("/user")
     //x-www-form-urlencoded = (request.getParameter())
-    public void save(String username,String password,String phone){
+    public ResponseEntity<String> save(@RequestBody User user){
         log.info("save");
-
+        System.out.println("username = " + user.getUsername());
+        System.out.println("password = " + user.getPassword());
+        System.out.println("phone = " + user.getPhone());
+        userRepository.save(user);
+        return new ResponseEntity<>("ok",HttpStatus.OK);
     }
     @DeleteMapping("/user/{id}")
-    public void delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id){
         log.info("delete");
+        return "ok";
     }
 
     @PutMapping("/user/{id}")
