@@ -1,5 +1,7 @@
 package com.codej.AOP.controller;
 
+import com.codej.AOP.domain.JoinReqDTO;
+import com.codej.AOP.domain.UpdateReqDTO;
 import com.codej.AOP.domain.User;
 import com.codej.AOP.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +37,10 @@ public class UserController {
 
     @PostMapping("/user")
     //x-www-form-urlencoded = (request.getParameter())
-    public ResponseEntity<String> save(@RequestBody User user){
+    public ResponseEntity<String> save(@RequestBody JoinReqDTO dto){
         log.info("save");
-        System.out.println("username = " + user.getUsername());
-        System.out.println("password = " + user.getPassword());
-        System.out.println("phone = " + user.getPhone());
-        userRepository.save(user);
+        System.out.println("dto = " + dto);
+        userRepository.save(dto);
         return new ResponseEntity<>("ok",HttpStatus.OK);
     }
     @DeleteMapping("/user/{id}")
@@ -50,7 +50,9 @@ public class UserController {
     }
 
     @PutMapping("/user/{id}")
-    public void modify(@PathVariable Long id,String password,String phone){
+    public ResponseEntity<UpdateReqDTO> modify(@PathVariable Long id,@RequestBody UpdateReqDTO dto){
         log.info("modify");
+        userRepository.modify(id,dto);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }

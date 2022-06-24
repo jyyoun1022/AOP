@@ -22,7 +22,11 @@ public class UserRepository {
         return new User(1L,"codej","1234","01046232891");
     }
 
-    public void save(User user){
+    public void save(JoinReqDTO dto){
         System.out.println("DB에 Insert 하기");
+    }
+
+    public void modify(Long id,UpdateReqDTO dto){
+        throw new IllegalArgumentException("파라마터 잘못 넣음");
     }
 }
